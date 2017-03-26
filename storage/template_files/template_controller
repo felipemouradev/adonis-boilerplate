@@ -1,0 +1,61 @@
+'use strict'
+const [MODEL] = use('App/Model/[MODEL]')
+const Helpers = use('Helpers')
+const File = use('File')
+const Validator = use('Validator')
+
+class [CONTROLLER]Controller {
+
+  * index(request, response) {
+    const [TABLE] = yield [MODEL].all()
+    response.status(200).json([TABLE])
+  }
+
+  * store(request, response) {
+    let data = request.all()
+    const valid = yield Validator.validate(data, [MODEL].rules)
+    if (valid.fails()) {
+      response.status(400).json({
+        erros: valid.messages()
+      })
+      return
+    }
+    yield [MODEL].create(data);
+    response.status(200).json({
+      message: "[MODEL] salvo com sucesso"
+    })
+  }
+
+  * update(request, response) {
+    let data = request.all()
+    const [PRIMARY] = request.param('[PRIMARY]')
+    const valid = yield Validator.validate(data, [MODEL].rules)
+    if (valid.fails()) {
+      response.status(400).json({
+        erros: valid.messages()
+      });
+    }
+    let update = yield [MODEL].findBy('[PRIMARY]', [PRIMARY])
+    update.fill(data)
+    yield update.save()
+    response.status(200).json({
+      message: "[MODEL] atualizado com sucesso"
+    })
+  }
+
+  * destroy(request, response) {
+    const [PRIMARY] = request.param('[PRIMARY]')
+    let [TABLE] = yield [MODEL].findBy('[PRIMARY]', [PRIMARY])
+    if ([TABLE] === null) {
+      response.status(400).json({
+        message: "[MODEL] não existe"
+      })
+      return
+    }
+    yield [TABLE].delete()
+    response.status(200).json({
+      message: "[MODEL] deletado com sucesso"
+    })
+  }
+}
+module.exports = [CONTROLLER]Controller

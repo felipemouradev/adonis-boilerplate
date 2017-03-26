@@ -1,0 +1,4 @@
+  [table_]() {
+    return this.belongsTo('App/Model/[table]')
+  }
+
