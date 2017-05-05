@@ -22,6 +22,8 @@ class [MODEL] extends Lucid {
       }
   }
 
+[USER_RESERVED]
+
 }
 
 module.exports = [MODEL]
