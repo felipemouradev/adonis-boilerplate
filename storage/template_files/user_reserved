@@ -1,0 +1,16 @@
+    static boot() {
+        super.boot()
+
+        /**
+        * Hashing password before storing to the
+        * database.
+        */
+        this.addHook('beforeCreate', function* (next) {
+            this.password = yield Hash.make(this.password)
+            yield next
+        })
+    }
+
+    apiTokens() {
+        return this.hasMany('App/Model/Token')
+    }
