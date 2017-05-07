@@ -37,8 +37,8 @@ class GenerateCrud extends Command {
       .replaceAll('[TABLE]', inflect.pluralize(table))
       .replaceAll('[PRIMARY]', primaryKey)
       .replaceAll('[RULES]', yield this.generateRules(fields))
-      .replaceAll('[functions]', yield this.generateRefer(fields))
       .replaceAll('[USER_RESERVED]',table=="user" ? user_reserved : '')
+      .replaceAll('[FUNCTIONS]', yield this.generateRefer(fields))
       
     yield File.connection('app').put('Model/' + ucfirst(table) + '.js', newFile)
     this.info('Model Created')
@@ -80,6 +80,7 @@ class GenerateCrud extends Command {
         let iarq = arq
         iarq = iarq.replace('[table]', inflect.camelize(table)).replace('[table_]', table)
         functions += "\n" + iarq
+        console.log(functions)
       }
     }
     return functions

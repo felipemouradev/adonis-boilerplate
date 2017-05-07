@@ -25,6 +25,8 @@ class [MODEL] extends Lucid {
 
 [USER_RESERVED]
 
+[FUNCTIONS]
+
 }
 
 module.exports = [MODEL]
