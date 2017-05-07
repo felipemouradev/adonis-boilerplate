@@ -80,7 +80,6 @@ class GenerateCrud extends Command {
         let iarq = arq
         iarq = iarq.replace('[table]', inflect.camelize(table)).replace('[table_]', table)
         functions += "\n" + iarq
-        console.log(functions)
       }
     }
     return functions
