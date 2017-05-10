@@ -13,7 +13,7 @@ class [CONTROLLER]Controller {
 
   * store(request, response) {
     let data = request.all()
-    const valid = yield Validator.validadeAll(data, [MODEL].rules)
+    const valid = yield Validator.validateAll(data, [MODEL].rules)
     if (valid.fails()) {
       response.status(400).json({
         erros: valid.messages()
@@ -29,7 +29,7 @@ class [CONTROLLER]Controller {
   * update(request, response) {
     let data = request.all()
     const [PRIMARY] = request.param('[PRIMARY]')
-    const valid = yield Validator.validadeAll(data, [MODEL].rules)
+    const valid = yield Validator.validateAll(data, [MODEL].rules)
     if (valid.fails()) {
       response.status(400).json({
         erros: valid.messages()
